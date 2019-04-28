@@ -2,13 +2,15 @@ $(document).ready(function () {
 
     var searchUrl = "https://www.eventbriteapi.com/v3/events/search/";
     var token;
+    var categories = {};
 
     function getAuth() {
-        var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=https://medricr.github.io/group-project";
+        var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
         var accessKey = "access_token=";
 
-        if (window.location.href.indexOf(accessKey) != -1) {
-            var href = window.location.href;
+        var href = window.location.href;
+
+        if (href.indexOf(accessKey) != -1) {
             var index = href.indexOf(accessKey);
             var tok = href.substr(index + accessKey.length);
             token = tok;
@@ -20,9 +22,25 @@ $(document).ready(function () {
     }
 
     function getEvents() {
-        var city = "Sacramento";
-        var search = "party";
-        var url = searchUrl + "?location.address=" + city + "&sort_by=date&q=" + search;
+        var city = $("#city")
+            .val()
+            .trim();
+
+        if (!city) {
+            return;
+        }
+
+        var search = $("#search")
+            .val()
+            .trim();
+
+        var category = $("#categories")
+            .val()
+            .trim();
+
+        var catId = categories[category];
+
+        var url = searchUrl + "?location.address=" + city + "&sort_by=date&q=" + search + "&categories=" + catId + "&expand=venue,ticket_availability";
         $.ajax({
             url: url,
             headers: {
@@ -30,25 +48,46 @@ $(document).ready(function () {
             },
             method: "GET"
         }).then(function (res) {
-            $("#event-list").empty();
-            console.log(res);
-            for (var i = 0; i < 10; i++) {
-                console.log(i);
+
+            for (var i = 0; i < res.events.length; i++) {
                 createEventCard(res.events[i]);
             }
+
+            if (res.events.length === 0) {
+                var noEvents = "<h2>No Events Found</h2>";
+                $("#event-list").append(noEvents);
+            }
+
+            $(document).scrollTop($("#event-list").offset().top - 20);
+        });
+    }
+
+    function getCategories() {
+        var url = "https://www.eventbriteapi.com/v3/categories/";
+        $.ajax({
+            url: url,
+            headers: {
+                Authorization: "Bearer " + token
+            },
+            method: "GET"
+        }).then(function (res) {
+            res.categories.forEach((cat) => {
+                categories[cat.name] = cat.id;
+                $("#categories").append("<option>" + cat.name + "</option>");
+            });
         });
     }
 
     function createEventCard(event) {
-        var card = $("<div>");
-        card.addClass("card mb-3");
-        card.attr("style", "max-width: 540px;");
+        var card = $("<div>")
+            .addClass("card mb-3")
+            .attr("style", "max-width: 540px;");
 
-        var row = $("<div>");
-        row.addClass("row no-gutters");
+        var row = $("<div>")
+            .addClass("row no-gutters");
 
-        var imgCol = $("<div>");
-        imgCol.addClass("col-12");
+        var imgCol = $("<div>")
+            .addClass("col-12");
 
         var logoUrl;
 
@@ -59,48 +98,75 @@ $(document).ready(function () {
             logoUrl = "/assets/images/No-Image.png";
         }
 
-        var img = "<img src='" + logoUrl + "' class='card-img'>";
-        imgCol.html(img);
+        imgCol.html("<img src='" + logoUrl + "' class='card-img'>");
 
 
         var cardText = $("<div>");
 
-        var cardBody = $("<div>");
-        cardBody.addClass("card-body");
-        cardBody.append("<h5 class='card-title'>" + event.name.text + "</h5>");
+        var cardBody = $("<div>")
+            .addClass("card-body")
+            .append("<h5 class='card-title'>" + event.name.text + "</h5>");
 
         var cardLink = $("<a>")
             .attr("href", event.url)
-            .attr("target", "_blank");
-        cardLink.addClass("card-link");
-        cardLink.text("Read more");
+            .attr("target", "_blank")
+            .addClass("card-link")
+            .text("Read more");
 
 
-        var time = $("<p>");
-        time.addClass("card-text");
+        var short = moment(event.start.local, "YYYY-MM-DD")
+            .format("LL");
 
-        var date = event.start.local
+        var time = $("<p>")
+            .addClass("card-text")
+            .html("<strong>When: </strong>" + short);
 
-        var d = moment(date, "YYYY-MM-DD");
+        var price = $("<p>")
+            .addClass("card-text")
+            .html("<strong>Price: </strong>" + "$" + event.ticket_availability.maximum_ticket_price.major_value);
 
-        var short = d.format("LL");
+        cardBody.append(time)
+            .append(price)
+            .append(cardLink);
 
-        time.text(short);
-
-        cardBody.append(time);
-        cardBody.append(cardLink);
-
-        cardText.append(cardBody);
-
-        row.append(imgCol);
-        row.append(cardText);
+        row.append(imgCol)
+            .append(cardText);
 
         card.append(row);
+
+
+        var venue = event.venue;
+
+        var map = $("<button>")
+            .addClass("btn btn-primary mx-3 my-3")
+            .attr("id", "mapBtn")
+            .attr("data-latitude", venue.latitude)
+            .attr("data-longitude", venue.longitude)
+            .text("Show map");
+
+
+        var hotel = $("<button>")
+            .addClass("btn btn-success")
+            .attr("id", "hotelBtn")
+            .text("Show hotels");
+
+        cardText.append(cardBody)
+            .append(map)
+            .append(hotel);
 
         $("#event-list").append(card);
     }
 
+    $("#submit").on("click", function (event) {
+        event.preventDefault();
+
+        $("#event-list").empty();
+
+        $("form").addClass("was-validated");
+
+        getEvents();
+    });
 
     getAuth();
-    getEvents();
+    getCategories();
 });
