@@ -26,26 +26,7 @@
 //     alert("clicked");
 //     location = $("#city_entry").val();
 //     console.log(locaiton);
-//     // Nested API calls which allow the user to see hotels in the destination city
-//     // $.ajax({
-//     //     beforeSend: function(request){
-//     //         request.setRequestHeader("X-RapidAPI-Host","apidojo-kayak-v1.p.rapidapi.com");
-//     //         request.setRequestHeader("X-RapidAPI-Key","da97cf968cmsha16cf672fa90a65p1735a7jsnc510610589d5");
-//     //     },
-//     //     url: "https://apidojo-kayak-v1.p.rapidapi.com/locations/search?where=san+francisco",
-//     //     method: "GET"
-//     // }).then(function(response){
-//     //     $.ajax({
-//     //         beforeSend: function(request){
-//     //             request.setRequestHeader("X-RapidAPI-Host","apidojo-kayak-v1.p.rapidapi.com");
-//     //             request.setRequestHeader("X-RapidAPI-Key","da97cf968cmsha16cf672fa90a65p1735a7jsnc510610589d5");
-//     //         },
-//     //         url: "https://apidojo-kayak-v1.p.rapidapi.com/hotels/create-session?&rooms=1&citycode=16078&checkin=2019-06-20&checkout=2019-06-24&adults=1",
-//     //         method: "GET"
-//     //     }).then(function(response){
-//     //         console.log(response);
-//     //     })
-//     // })
+    
 // })
 var dates_of_visit = [];
 
@@ -58,5 +39,26 @@ $(document).ready(()=>{
 
         console.log(location);
         console.log(dates_of_visit);
+
+        // Nested API calls which allow the user to see hotels in the destination city
+    $.ajax({
+        beforeSend: function(request){
+            request.setRequestHeader("X-RapidAPI-Host","apidojo-kayak-v1.p.rapidapi.com");
+            request.setRequestHeader("X-RapidAPI-Key","da97cf968cmsha16cf672fa90a65p1735a7jsnc510610589d5");
+        },
+        url: "https://apidojo-kayak-v1.p.rapidapi.com/locations/search?where=" + location,
+        method: "GET"
+    }).then(function(response){
+        $.ajax({
+            beforeSend: function(request){
+                request.setRequestHeader("X-RapidAPI-Host","apidojo-kayak-v1.p.rapidapi.com");
+                request.setRequestHeader("X-RapidAPI-Key","da97cf968cmsha16cf672fa90a65p1735a7jsnc510610589d5");
+            },
+            url: "https://apidojo-kayak-v1.p.rapidapi.com/hotels/create-session?&rooms=1&citycode=16078&checkin=2019-07-20&checkout=2019-07-24&adults=1",
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+        })
+    })
     })
 })
