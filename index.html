@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Me</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -18,11 +19,42 @@
     <script src="assets/javascript/event.js"></script>
 
     <div class="container-fluid">
-        <div class="row mt-5">
+        <div class="row mt-5 justify-content-md-center">
+            <div class="col-md-8 col-xs-12">
+                <div class="jumbotron">
+                    <h1 class="display-4">Event Me</h1>
 
+                    <form class="needs-validation mt-3" novalidate>
+                        <div class="form-group">
+                            <label for="search">Search (optional)</label>
+                            <input class="form-control" id="search"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input class="form-control" id="city" required></input>
+                            <div class="invalid-feedback">
+                                Please choose a city.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categories">Categories</label>
+                            <select class="form-control" id="categories"></select>
+                        </div>
+
+                        <button type="submit" id="submit" class="btn btn-light">Submit</button>
+                    </form>
+
+                </div>
+            </div>
         </div>
+
         <div class="row ml-3">
-            <div id="event-list" class="col-12">
+            <div class="col-sm-6">
+                <div class="card mb-5">
+                    <div id="event-list"></div>
+                </div>
             </div>
         </div>
     </div>

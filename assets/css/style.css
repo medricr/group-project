@@ -1,4 +1,21 @@
-/* 
-.col-md-4 {
-    height: 100%;
-} */
+html {
+    scroll-behavior: smooth;
+}
+
+.jumbotron {
+    background-image: url("../images/san_francisco.jpg");
+    background-repeat: repeat;
+    background-size: 100%;
+}
+
+label, h1, .invalid-feedback {
+    color: white;
+}
+
+input,select {
+    opacity: 0.8;
+}
+
+h2 {
+    margin: 25px;
+}
