@@ -15,3 +15,7 @@ label, h1, .invalid-feedback {
 input,select {
     opacity: 0.8;
 }
+
+h2 {
+    margin: 25px;
+}

@@ -80,28 +80,14 @@ $(document).ready(function () {
 
     function createEventCard(event) {
         var card = $("<div>")
-            .addClass("card mb-3")
-            .attr("style", "max-width: 540px;");
+            .addClass("card mb-3");
 
-        var row = $("<div>")
-            .addClass("row no-gutters");
-
-        var imgCol = $("<div>")
-            .addClass("col-12");
-
-        var logoUrl;
-
-        if (event.logo) {
-            logoUrl = event.logo.url;
-        }
-        else {
-            logoUrl = "/assets/images/No-Image.png";
-        }
-
-        imgCol.html("<img src='" + logoUrl + "' class='card-img'>");
+        var logoUrl = event.logo ? event.logo.url : "/assets/images/No-Image.png";
 
 
-        var cardText = $("<div>");
+        var img = $("<img>")
+            .attr("src", logoUrl)
+            .addClass("card-img");
 
         var cardBody = $("<div>")
             .addClass("card-body")
@@ -110,8 +96,8 @@ $(document).ready(function () {
         var cardLink = $("<a>")
             .attr("href", event.url)
             .attr("target", "_blank")
-            .addClass("card-link")
-            .text("Read more");
+            .addClass("card-text")
+            .html("Read more<br>");
 
 
         var short = moment(event.start.local, "YYYY-MM-DD")
@@ -121,19 +107,18 @@ $(document).ready(function () {
             .addClass("card-text")
             .html("<strong>When: </strong>" + short);
 
+
+        var cost = event.ticket_availability.maximum_ticket_price.major_value;
+        if (cost == 0) {
+            cost = "Free";
+        }
+        else {
+            cost = "$" + cost;
+        }
+
         var price = $("<p>")
             .addClass("card-text")
-            .html("<strong>Price: </strong>" + "$" + event.ticket_availability.maximum_ticket_price.major_value);
-
-        cardBody.append(time)
-            .append(price)
-            .append(cardLink);
-
-        row.append(imgCol)
-            .append(cardText);
-
-        card.append(row);
-
+            .html("<strong>Price: </strong>" + cost);
 
         var venue = event.venue;
 
@@ -150,9 +135,9 @@ $(document).ready(function () {
             .attr("id", "hotelBtn")
             .text("Show hotels");
 
-        cardText.append(cardBody)
-            .append(map)
-            .append(hotel);
+        cardBody.append(time, price, cardLink, map, hotel);
+
+        card.append(img, cardBody);
 
         $("#event-list").append(card);
     }
