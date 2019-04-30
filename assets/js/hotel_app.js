@@ -71,7 +71,7 @@ $(document).ready(()=>{
             }
             for(let i=0; i<response.hotelset.length; i++){
                 $(".hotel_display").append(
-                    "<tr><td>" + i + "</td>" + "<td>" + response.hotelset[i].name + "</td>"
+                    "<tr><td>" + (i+1) + "</td>" + "<td>" + response.hotelset[i].name + "</td>"
                     + "<td>" + response.hotelset[i].price + "</td>" + "<td>" + response.hotelset[i].address 
                     + "</td>" + "<td>" + "<a href=" + response.baseUrl + response.hotelset[i].shareURL + " target='blank'>Get a room</a>"
                     + "</td></tr>"
