@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Reset -->
+    <link rel="reset" href="assets/css/reset.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/hotel_style.css">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+     <div class="container">
+        <!-- user input form -->
+        <div class="row mt-2 mb-2">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">Enter your destination city & dates of travel</div>
+                    <div class="form-group">
+                        <label for="city_entry">City</label>
+                        <input type="city" class="form-control" id="city_entry" aria-describedby="city_help" placeholder="Where ya goin?">
+                        <label for="date_entry"> Arrival Date</label>
+                        <input type="date" class="form-control" id="arrival_date_entry" aria-describedby="date_help">
+                        <label for="date_entry"> Departure Date</label>
+                        <input type="date" class="form-control" id="departure_date_entry" aria-describedby="date_help">
+                        <button  type="button" class="btn btn-primary" id="submit_btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- hotel display form -->
+        <div class="row text-center">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">Available Hotels</div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hotel Name</th>
+                                <th>Avg Price Per Room</th>
+                                <th>Address</th>
+                                <th>Website</th>
+                            </tr>
+                        </thead>
+                        <tbody class="hotel_display">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+     <!-- Script-->
+     <script src="assets/js/hotel_app.js"></script>
+</body>
+</html>
