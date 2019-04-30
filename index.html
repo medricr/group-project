@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Me</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -17,6 +19,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="assets/javascript/event.js"></script>
+    <script src="assets/javascript/maps.js"></script>
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css'
+        type='text/css' />
 
     <div class="container-fluid">
         <div class="row mt-5 justify-content-md-center">
@@ -54,12 +62,17 @@
             <div class="col-sm-6">
                 <div class="card mb-5">
                     <div id="event-list"></div>
+
                 </div>
+            </div>
+            <div class="container col-sm-6">
+                <div id='map' style='width: 650px; height: 450px;'></div>
             </div>
         </div>
     </div>
-
-
+    <div class="container">
+        <div id='map' style='width: 700px; height: 500px;'></div>
+    </div>
 </body>
 
 </html>
