@@ -4,6 +4,10 @@ $(document).ready(function () {
     var token;
     var categories = {};
 
+    $('#carousel').carousel({
+        interval: 2000
+    });
+
     function getAuth() {
         var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
         var accessKey = "access_token=";
@@ -50,15 +54,17 @@ $(document).ready(function () {
         }).then(function (res) {
 
             for (var i = 0; i < res.events.length; i++) {
-                createEventCard(res.events[i]);
+                createEventCard(res.events[i], i);
             }
 
             if (res.events.length === 0) {
+
                 var noEvents = "<h2>No Events Found</h2>";
-                $("#event-list").append(noEvents);
+
+                $(".carousel-inner").append(noEvents);
             }
 
-            $(document).scrollTop($("#event-list").offset().top - 20);
+            $(document).scrollTop($(".carousel").offset().top - 20);
         });
     }
 
@@ -78,35 +84,37 @@ $(document).ready(function () {
         });
     }
 
-    function createEventCard(event) {
-        var card = $("<div>")
-            .addClass("card mb-3");
+    function createEventCard(event, index) {
+
+        var li = $("<li>")
+            .attr("data-target", "#carousel")
+            .attr("data-slide-to", index);
+
+
+        var inner = $(".carousel-inner");
+
+        var item = $("<div>")
+            .addClass("carousel-item");
+
+        if (index === 0) {
+            item.addClass("active");
+            li.addClass("active");
+        }
+
+        $(".carousel-indicators").append(li);
+
 
         var logoUrl = event.logo ? event.logo.url : "/assets/images/No-Image.png";
 
 
         var img = $("<img>")
             .attr("src", logoUrl)
-            .addClass("card-img");
+            .addClass("d-block w-100");
 
-        var cardBody = $("<div>")
-            .addClass("card-body")
-            .append("<h5 class='card-title'>" + event.name.text + "</h5>");
-
-        var cardLink = $("<a>")
-            .attr("href", event.url)
-            .attr("target", "_blank")
-            .addClass("card-text")
-            .html("Read more<br>");
-
+        item.append(img);
 
         var short = moment(event.start.local, "YYYY-MM-DD")
             .format("LL");
-
-        var time = $("<p>")
-            .addClass("card-text")
-            .html("<strong>When: </strong>" + short);
-
 
         var cost = event.ticket_availability.maximum_ticket_price.major_value;
         if (cost == 0) {
@@ -116,36 +124,29 @@ $(document).ready(function () {
             cost = "$" + cost;
         }
 
-        var price = $("<p>")
-            .addClass("card-text")
-            .html("<strong>Price: </strong>" + cost);
-
-        var venue = event.venue;
-
-        var map = $("<button>")
-            .addClass("btn btn-primary mx-3 my-3")
-            .attr("id", "mapBtn")
-            .attr("data-latitude", venue.latitude)
-            .attr("data-longitude", venue.longitude)
-            .text("Show map");
+        var link = $("<a>")
+            .attr("href", event.url)
+            .attr("target", "_blank")
+            .html("Read more");
 
 
-        var hotel = $("<button>")
-            .addClass("btn btn-success")
-            .attr("id", "hotelBtn")
-            .text("Show hotels");
+        var caption = $("<div>")
+            .addClass("carousel-caption d-none d-md-block")
+            .append("<h5>" + event.name.text + "</h5>")
+            .append("<p><strong>When: </strong>" + short + "</p>")
+            .append("<p><strong>Price: </strong>" + cost)
+            .append(link);
 
-        cardBody.append(time, price, cardLink, map, hotel);
+        item.append(caption);
 
-        card.append(img, cardBody);
-
-        $("#event-list").append(card);
+        inner.append(item);
     }
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
 
-        $("#event-list").empty();
+        $(".carousel-inner").empty();
+        $(".carousel-indicators").empty();
 
         $("form").addClass("was-validated");
 
