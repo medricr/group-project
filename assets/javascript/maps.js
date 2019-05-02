@@ -23,40 +23,33 @@ $(document).ready(function () {
 
     getLocation();
 
-    $(document.body).on("click", "#mapBtn", function () {
-        var eventLong = $(this).attr("data-longitude");
-        var eventLat = $(this).attr("data-latitude");
-        var eventCoordinates = [eventLong, eventLat];
-        console.log(eventCoordinates);
+    $('#carousel').on('slide.bs.carousel', function (event) {
 
-        var canvas = map.getCanvasContainer();
+        if ($(".marker")) {
+            $(".marker").remove();
+        }
 
-        var geojson = {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": eventCoordinates
-                }
-            }]
-        };
+        var index = event.to;
+        var latitude = latitudes[index];
+        var long = longitudes[index];
+        console.log(latitudes)
 
-        // Add a single point to the map
-        map.addSource('point', {
-            "type": "geojson",
-            "data": geojson
-        });
+        var coord = [long, latitude];
+        console.log(coord);
 
-        map.addLayer({
-            "id": "point",
-            "type": "circle",
-            "source": "point",
-            "paint": {
-                "circle-radius": 10,
-                "circle-color": "orange"
-            }
-        });
+        console.log(map);
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(coord)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
+            .addTo(map);
+
 
         // var geocoder = new MapboxGeocoder({
         //     accessToken: mapboxgl.accessToken,

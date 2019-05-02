@@ -1,11 +1,11 @@
+var latitudes = [];
+var longitudes = [];
+
 $(document).ready(function () {
 
     var searchUrl = "https://www.eventbriteapi.com/v3/events/search/";
     var token;
     var categories = {};
-
-    var latitudes = [];
-    var longitudes = [];
 
     $('#carousel').carousel({
         interval: 1000000
@@ -167,14 +167,7 @@ $(document).ready(function () {
         getEvents();
     });
 
-    $('#carousel').on('slide.bs.carousel', function (event) {
-        var index = event.to;
-        var latitude = latitudes[index];
-        var long = longitudes[index];
 
-        var coord = [long, latitude];
-        console.log(index);
-    })
     getAuth();
     getCategories();
 });
