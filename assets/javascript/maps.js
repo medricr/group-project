@@ -140,6 +140,34 @@ $(document).ready(function () {
                 "circle-color": "blue"
             }
         });
+    });
+    $('#carousel').on('slide.bs.carousel', function (event) {
+
+        if ($(".marker")) {
+            $(".marker").remove();
+        }
+
+        var index = event.to;
+        var latitude = latitudes[index];
+        var long = longitudes[index];
+        console.log(latitudes)
+
+        var coord = [long, latitude];
+        console.log(coord);
+
+        console.log(map);
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(coord)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
+            .addTo(map);
+
 
     })
     // map.addControl(geocoder);
