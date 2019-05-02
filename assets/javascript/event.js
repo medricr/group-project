@@ -4,8 +4,11 @@ $(document).ready(function () {
     var token;
     var categories = {};
 
+    var latitudes = [];
+    var longitudes = [];
+
     $('#carousel').carousel({
-        interval: 2000
+        interval: 1000000
     });
 
     function getAuth() {
@@ -53,8 +56,16 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (res) {
 
+            latitudes = [];
+            longitudes = [];
+
             for (var i = 0; i < res.events.length; i++) {
-                createEventCard(res.events[i], i);
+                var event = res.events[i];
+
+                latitudes.push(event.venue.latitude);
+                longitudes.push(event.venue.longitude);
+
+                createEventCard(event, i);
             }
 
             if (res.events.length === 0) {
@@ -85,6 +96,7 @@ $(document).ready(function () {
     }
 
     function createEventCard(event, index) {
+
 
         var li = $("<li>")
             .attr("data-target", "#carousel")
@@ -140,6 +152,8 @@ $(document).ready(function () {
         item.append(caption);
 
         inner.append(item);
+
+
     }
 
     $("#submit").on("click", function (event) {
@@ -153,6 +167,14 @@ $(document).ready(function () {
         getEvents();
     });
 
+    $('#carousel').on('slide.bs.carousel', function (event) {
+        var index = event.to;
+        var latitude = latitudes[index];
+        var long = longitudes[index];
+
+        var coord = [long, latitude];
+        console.log(index);
+    })
     getAuth();
     getCategories();
 });
