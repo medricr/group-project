@@ -2,7 +2,7 @@ body {
     background: url("../images/dark-paths.png");
 }
 a:link {
-    color:crimson;
+    color:thistle;
 }
 /* the following two blocks make the hotel table scrollable */
 .hotel_table {

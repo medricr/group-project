@@ -16,9 +16,6 @@ HOTEL_APP.JS VARIABLE PROTOTYPES
 
     dates_of_visit (array of strings) - an array which will hold the date of arrival in the first position, and the date of departure in the second position. The date of departure is optional, and will be set to null if the user does not input one
 
-    hotel_locations (array of strings) - an array which will hold the long/lat coordinates of all the hotels returned by the hotel api
-
-    long_lat (object) - an object which will hold the long/lat coordinates of a hotel
 */
 var dates_of_visit = [];
 var hotel_index = 0;
@@ -73,26 +70,16 @@ $(document).ready(()=>{
                 for(let i=0; i<10; i++){
                     $(".hotel_display").append(
                         // add hotel class and unique identifier attributes
-                        '<tr class="hotel hotel_'+i
-                        // add hotel latitude attribute
-                        +'" data_lat="'+response.hotelset[i].lat
-                        // add hotel longitude attribute
-                        +'" data_lon="'+response.hotelset[i].lon
-                        // add hotel number in list
-                        +'" ><td>' + (i+1) 
+                        '<tr class="hotel hotel_'+i+'" data_lat="'+response.hotelset[i].lat+'" data_lon="'+response.hotelset[i].lon+'" >'
+                        // (i+1) 
                         // add hotel name
-                        + "</td>" + "<td>" + response.hotelset[i].name 
-                        // add hotel avg hotel room price ((historic high + historic low) / 2)
-                        + "</td>"+ "<td>" + "$" + ((parseFloat(response.hotelset[i].pricehistoryhi,10) + parseFloat(response.hotelset[i].pricehistorylo,10))/2) 
-                        // add hotel address
-                        + "</td>" + "<td>" + response.hotelset[i].address 
-                        // add hotel neighborhood
-                        + "</td>" + "<td>" +  response.hotelset[i].neighborhood
-                        // add url to booking website 
-                        + "</td>" + "<td>" + "<a href=" + response.baseUrl + response.hotelset[i].shareURL 
-                        + " target='blank'>Book Now!</a>"
-                        + "</td>" + "<td>" + '<button class="btn btn-primary">Add To Map</button>' +
-                        + "</td></tr>"
+                        // + "</td>" + "<td>" + 
+                        + "<td>" + response.hotelset[i].name + "</td>"
+                        + "<td>" + "$" + ((parseFloat(response.hotelset[i].pricehistoryhi,10) + parseFloat(response.hotelset[i].pricehistorylo,10))/2) + "</td>" 
+                        + "<td>" + response.hotelset[i].address + "</td>" 
+                        + "<td>" +  response.hotelset[i].neighborhood+ "</td>" 
+                        + "<td>" + "<a href=" + response.baseUrl + response.hotelset[i].shareURL + " target='blank'>Book Now!</a>" + "</td>" 
+                        + "<td>" + '<button class="btn btn-primary">Add To Map</button>' + "</td></tr>"
                     );
                     hotel_index++;
                 } 
