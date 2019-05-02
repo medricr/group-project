@@ -8,9 +8,10 @@ html {
     background-size: 100%;
 }
 
-label, h1, .invalid-feedback {
+label, h1, .invalid-feedback, a, a:hover{
     color: white;
 }
+
 
 input,select {
     opacity: 0.8;
@@ -18,4 +19,9 @@ input,select {
 
 h2 {
     margin: 25px;
+}
+
+.carousel-caption {
+    background-color:black;
+    opacity: 0.85;
 }
