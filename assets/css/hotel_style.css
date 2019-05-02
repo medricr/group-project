@@ -1,4 +1,13 @@
 body {
     background: url("../images/bananas.png");
-    
+}
+/* the following two blocks make the hotel table scrollable */
+.hotel_table {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
 }

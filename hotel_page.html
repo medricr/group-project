@@ -22,17 +22,19 @@
         <div class="row mt-2 mb-2">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <div class="card">
+                <div class="card text-center">
                     <div class="card-header">Enter your destination city & dates of travel</div>
-                    <div class="form-group">
-                        <label for="city_entry">City</label>
-                        <input type="city" class="form-control" id="city_entry" aria-describedby="city_help" placeholder="Where ya goin?">
-                        <label for="date_entry"> Arrival Date</label>
-                        <input type="date" class="form-control" id="arrival_date_entry" aria-describedby="date_help">
-                        <label for="date_entry"> Departure Date</label>
-                        <input type="date" class="form-control" id="departure_date_entry" aria-describedby="date_help">
-                        <button  type="button" class="btn btn-primary" id="submit_btn">Submit</button>
-                    </div>
+                    <form class="form">
+                        <div class="form-group">
+                            <label for="city_entry">City</label>
+                            <input type="city" class="form-control" id="city_entry" aria-describedby="city_help" placeholder="Where ya goin?">
+                            <label for="date_entry"> Arrival Date</label>
+                            <input type="date" class="form-control" id="arrival_date_entry" aria-describedby="date_help">
+                            <label for="date_entry"> Departure Date</label>
+                            <input type="date" class="form-control" id="departure_date_entry" aria-describedby="date_help">
+                            <button  type="button" class="btn btn-primary" id="submit_btn">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -41,27 +43,29 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
                 <div class="card">
-                    <div class="card-header">Available Hotels</div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Hotel Name</th>
-                                <th>Avg Price Per Room</th>
-                                <th>Address</th>
-                                <th>Neighborhood</th>
-                                <th>Website</th>
-                            </tr>
-                        </thead>
-                        <tbody class="hotel_display">
+                    <div class="card-header">Available Hotels<button class="show_more">Show More</button></div>
+                    <div class="table-wrapper-scroll-y hotel_table">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Hotel Name</th>
+                                    <th>Avg Price Per Room</th>
+                                    <th>Address</th>
+                                    <th>Neighborhood</th>
+                                    <th>Website</th>
+                                </tr>
+                            </thead>
+                            <tbody class="hotel_display">
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
      </div>
      <!-- Script-->
-     <script src="assets/js/hotel_app.js"></script>
+     <script src="assets/javascript/hotel_app.js"></script>
 </body>
 </html>
