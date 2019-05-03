@@ -2,12 +2,15 @@ body {
     background: url("../images/dark-paths.png");
 }
 a:link {
-    color:thistle;
+    color:coral;
+}
+a:visited {
+    color:coral;
 }
 /* the following two blocks make the hotel table scrollable */
 .hotel_table {
     position: relative;
-    height: 400px;
+    height: 335px;
     overflow: auto;
 }
 

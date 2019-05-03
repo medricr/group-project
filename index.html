@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Me</title>
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Mapbox -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
+    <!-- Mapbox Styling -->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -16,14 +19,20 @@
 </head>
 
 <body>
+    <!-- Moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- Mapbox -->
     <script src='https://static-assets.mapbox.com/gl-pricing/dist/mapbox-gl.js'></script>
+    <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <!-- Event finder script -->
     <script src="assets/javascript/event.js"></script>
+    <!-- Map script -->
     <script src="assets/javascript/maps.js"></script>
     <!-- Hotel finder script -->
     <script src="assets/javascript/hotel_app.js"></script>
@@ -38,7 +47,7 @@
         <!-- event finder user form -->
         <div class="row mt-5 justify-content-md-center">
             <div class="col-md-12 col-xs-12">
-                <div class="jumbotron">
+                <!-- <div class="jumbotron"> -->
                     <h1 class="display-4">Event Me</h1>
 
                     <form class="needs-validation mt-3 form-row" novalidate>
@@ -63,7 +72,7 @@
                         <button type="submit" id="submit" class="btn btn-light ml-1">Submit</button>
                     </form>
 
-                </div>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -89,20 +98,17 @@
             <!-- hotel list -->
             <div class="col-sm-6">
                 <!-- hotel display card -->
-                <div class="card">
-                    <div class="card-header">Available Hotels</div>
+                <div class="card text-center">
+                    <div class="card-header">Available Hotels (Click on the hotel's address to add it to the map)</div>
                     <div class="table-wrapper-scroll-y hotel_table">
                         <table class="table hotel-table table-striped">
                             <!-- hotel display table headers -->
                             <thead>
                                 <tr>
-                                    <!-- <th>#</th> -->
                                     <th>Hotel Name</th>
-                                    <th>Avg Price Per Room</th>
+                                    <th>Avg $</th>
                                     <th>Address</th>
                                     <th>Neighborhood</th>
-                                    <th>Website</th>
-                                    <th>Add to Map</th>
                                 </tr>
                             </thead>
                             <!-- table body which will display the retrieved hotels -->
@@ -111,6 +117,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer"><button class="more_btn btn btn-secondary">Show More</button></div>
 
                 </div>
             </div>
