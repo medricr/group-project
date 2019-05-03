@@ -6,7 +6,8 @@ html {
 }
 
 .jumbotron {
-    background-image: url("../images/san_francisco.jpg");
+    /* background-image: url("../images/san_francisco.jpg"); */
+    background: thistle;
     background-repeat: repeat;
     background-size: 100%;
 }

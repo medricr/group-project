@@ -1,4 +1,19 @@
 body {
-    background: url("../images/bananas.png");
-    
+    background: url("../images/dark-paths.png");
+}
+a:link {
+    color:coral;
+}
+a:visited {
+    color:coral;
+}
+/* the following two blocks make the hotel table scrollable */
+.hotel_table {
+    position: relative;
+    height: 335px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
 }
