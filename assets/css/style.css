@@ -1,5 +1,5 @@
 body {
-    background-image: url("")
+    background-image: url("");
 }
 html {
     scroll-behavior: smooth;
@@ -9,7 +9,7 @@ html {
     /* background-image: url("../images/san_francisco.jpg"); */
     background: thistle;
     background-repeat: repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 label, h1, .invalid-feedback, a, a:hover{
@@ -30,7 +30,10 @@ h2 {
     opacity: 0.85;
 }
 
-.marker {
+.carousel-control-prev, .carousel-control-next {
+    background-color:black;
+}
+    .marker {
     background-image: url("http://clipart-library.com/images/pcodLeLxi.png");
     background-size: cover;
     width: 50px;
