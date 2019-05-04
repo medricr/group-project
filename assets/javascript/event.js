@@ -31,7 +31,8 @@ $(document).ready(function () {
     function getEvents() {
         var city = $("#city")
             .val()
-            .trim();
+            .trim()
+            .toUpperCase();
 
         if (!city) {
             return;

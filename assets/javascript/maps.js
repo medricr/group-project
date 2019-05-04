@@ -23,48 +23,54 @@ $(document).ready(function () {
 
     getLocation();
 
+    // when the user clicks on a hotel....
+    $(document.body).on("click", ".hotel", function () {
+        // get that hotels lang/lot coordinates...
+        var hotel_lat = $(this).attr("data_lat");
+        var hotel_lon = $(this).attr("data_lon");
+        // store them in a hotel coords variable
+        var hotel_coords = [hotel_lon, hotel_lat];
+
+        var el = document.createElement("div");
+        el.className = "marker";
+        new mapboxgl.Marker(el)
+            .setLngLat(hotel_coords)
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML('<h3>' + $(this).attr("data_name") + '</h3><p>' + "<a href=" + $(this).attr("data_link") + '">Book Now!</a>' + '</p>'))
+            .addTo(map);
+    });
     $('#carousel').on('slide.bs.carousel', function (event) {
+
+        if ($(".marker")) {
+            $(".marker").remove();
+        }
+
         var index = event.to;
         var latitude = latitudes[index];
         var long = longitudes[index];
-        console.log("slide");
-        var coord = [long, latitude];
+        console.log("Latitudes: " + latitudes);
 
-        if (map.getSource("point")) {
-            map.removeLayer("point");
-            map.removeSource("point");
+        var coord = [long, latitude];
+        console.log("Coordinate: " + coord);
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        if (!(latitude && long)) {
+            return;
         }
 
-        var geojson = {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": location
-                }
-            }]
-        };
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(coord)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
+            .addTo(map);
 
-        geojson.features[0].geometry.coordinates = coord;
 
-        map.addSource("point", {
-            "type": "geojson",
-            "data": geojson
-        });
-
-        map.addLayer({
-            "id": "point",
-            "type": "circle",
-            "source": "point",
-            "paint": {
-                "circle-radius": 10,
-                "circle-color": "orange"
-            }
-        });
-
-        map.setCenter(coord);
-    });
+    })
+    // map.addControl(geocoder);
 
 });
 
