@@ -1,5 +1,6 @@
 var latitudes = [];
 var longitudes = [];
+var eventNames = [];
 
 $(document).ready(function () {
 
@@ -7,10 +8,11 @@ $(document).ready(function () {
     var token;
     var categories = {};
 
-    $('#carousel').carousel({
-        interval: 1000000
+    $('.carousel').carousel({
+        interval: false
     });
 
+    $(".carousel").carousel("pause");
     function getAuth() {
         var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
         var accessKey = "access_token=";
@@ -31,7 +33,8 @@ $(document).ready(function () {
     function getEvents() {
         var city = $("#city")
             .val()
-            .trim();
+            .trim()
+            .toUpperCase();
 
         if (!city) {
             return;
@@ -58,14 +61,19 @@ $(document).ready(function () {
 
             latitudes = [];
             longitudes = [];
+            eventNames = [];
+            emptyCarousel();
 
             for (var i = 0; i < res.events.length; i++) {
                 var event = res.events[i];
 
-                latitudes.push(event.venue.latitude);
-                longitudes.push(event.venue.longitude);
+                if (event.logo) {
+                    latitudes.push(event.venue.latitude);
+                    longitudes.push(event.venue.longitude);
+                    eventNames.push(event.name.text);
 
-                createEventCard(event, i);
+                    createEventCard(event, i);
+                }
             }
 
             if (res.events.length === 0) {
@@ -115,13 +123,12 @@ $(document).ready(function () {
 
         $(".carousel-indicators").append(li);
 
-
-        var logoUrl = event.logo ? event.logo.url : "/assets/images/No-Image.png";
+        var logoUrl = event.logo.url;
 
 
         var img = $("<img>")
             .attr("src", logoUrl)
-            .addClass("d-block w-100");
+            .addClass("d-block w-100 h-50");
 
         item.append(img);
 
@@ -153,20 +160,22 @@ $(document).ready(function () {
 
         inner.append(item);
 
+    }
 
+    function emptyCarousel() {
+        $(".carousel-inner").empty();
+        $(".carousel-indicators").empty();
     }
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
 
-        $(".carousel-inner").empty();
-        $(".carousel-indicators").empty();
+        emptyCarousel();
 
         $("form").addClass("was-validated");
 
         getEvents();
     });
-
 
     getAuth();
     getCategories();
