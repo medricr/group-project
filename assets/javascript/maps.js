@@ -21,6 +21,48 @@ $(document).ready(function () {
         zoom: 11 // starting zoom
     });
 
+    function setEventMarker(event) {
+        if ($(".marker")) {
+            $(".marker").remove();
+        }
+
+        $(".mapboxgl-popup").remove();
+
+        var index;
+
+        if (event) {
+            index = event.to;
+        }
+        else {
+            index = 0;
+        }
+
+        var latitude = latitudes[index];
+        var long = longitudes[index];
+
+        if (!(latitude && long)) {
+            return;
+        }
+
+        console.log("Latitudes: " + latitudes);
+
+        var coord = [long, latitude];
+        console.log("Coordinate: " + coord);
+
+        map.setCenter(coord);
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(coord)
+            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML('<h3>' + eventNames[index] + '</h3>'))
+            .addTo(map)
+    }
+
     getLocation();
 
     // when the user clicks on a hotel....
@@ -39,40 +81,19 @@ $(document).ready(function () {
                 .setHTML('<h3>' + $(this).attr("data_name") + '</h3><p>' + "<a href=" + $(this).attr("data_link") + '">Book Now!</a>' + '</p>'))
             .addTo(map);
     });
+
     $('#carousel').on('slide.bs.carousel', function (event) {
+        clearInterval(timer);
+        setEventMarker(event);
+    });
 
-        if ($(".marker")) {
-            $(".marker").remove();
+
+    var timer = setInterval(() => {
+        if (latitudes.length !== 0) {
+            setEventMarker();
+            clearInterval(timer);
         }
-
-        var index = event.to;
-        var latitude = latitudes[index];
-        var long = longitudes[index];
-        console.log("Latitudes: " + latitudes);
-
-        var coord = [long, latitude];
-        console.log("Coordinate: " + coord);
-
-        map.setCenter(coord);
-
-        // create a HTML element for each feature
-        var el = document.createElement('div');
-        el.className = 'marker';
-
-        if (!(latitude && long)) {
-            return;
-        }
-
-        // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el)
-            .setLngLat(coord)
-            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
-            .addTo(map)
-
-
-    })
-    // map.addControl(geocoder);
+    }, 1000);
 
 });
 

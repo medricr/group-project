@@ -1,5 +1,6 @@
 var latitudes = [];
 var longitudes = [];
+var eventNames = [];
 
 $(document).ready(function () {
 
@@ -7,10 +8,11 @@ $(document).ready(function () {
     var token;
     var categories = {};
 
-    $('#carousel').carousel({
+    $('.carousel').carousel({
         interval: false
     });
 
+    $(".carousel").carousel("pause");
     function getAuth() {
         var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
         var accessKey = "access_token=";
@@ -59,6 +61,8 @@ $(document).ready(function () {
 
             latitudes = [];
             longitudes = [];
+            eventNames = [];
+            emptyCarousel();
 
             for (var i = 0; i < res.events.length; i++) {
                 var event = res.events[i];
@@ -66,6 +70,7 @@ $(document).ready(function () {
                 if (event.logo) {
                     latitudes.push(event.venue.latitude);
                     longitudes.push(event.venue.longitude);
+                    eventNames.push(event.name.text);
 
                     createEventCard(event, i);
                 }
@@ -155,14 +160,17 @@ $(document).ready(function () {
 
         inner.append(item);
 
+    }
 
+    function emptyCarousel() {
+        $(".carousel-inner").empty();
+        $(".carousel-indicators").empty();
     }
 
     $("#submit").on("click", function (event) {
         event.preventDefault();
 
-        $(".carousel-inner").empty();
-        $(".carousel-indicators").empty();
+        emptyCarousel();
 
         $("form").addClass("was-validated");
 
