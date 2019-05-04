@@ -1,14 +1,14 @@
+var latitudes = [];
+var longitudes = [];
+
 $(document).ready(function () {
 
     var searchUrl = "https://www.eventbriteapi.com/v3/events/search/";
     var token;
     var categories = {};
 
-    var latitudes = [];
-    var longitudes = [];
-
     $('#carousel').carousel({
-        interval: 1000000
+        interval: false
     });
 
     function getAuth() {
@@ -62,10 +62,12 @@ $(document).ready(function () {
             for (var i = 0; i < res.events.length; i++) {
                 var event = res.events[i];
 
-                latitudes.push(event.venue.latitude);
-                longitudes.push(event.venue.longitude);
+                if (event.logo) {
+                    latitudes.push(event.venue.latitude);
+                    longitudes.push(event.venue.longitude);
 
-                createEventCard(event, i);
+                    createEventCard(event, i);
+                }
             }
 
             if (res.events.length === 0) {
@@ -115,13 +117,12 @@ $(document).ready(function () {
 
         $(".carousel-indicators").append(li);
 
-
-        var logoUrl = event.logo ? event.logo.url : "/assets/images/No-Image.png";
+        var logoUrl = event.logo.url;
 
 
         var img = $("<img>")
             .attr("src", logoUrl)
-            .addClass("d-block w-100");
+            .addClass("d-block w-100 h-50");
 
         item.append(img);
 
@@ -167,14 +168,6 @@ $(document).ready(function () {
         getEvents();
     });
 
-    $('#carousel').on('slide.bs.carousel', function (event) {
-        var index = event.to;
-        var latitude = latitudes[index];
-        var long = longitudes[index];
-
-        var coord = [long, latitude];
-        console.log(index);
-    })
     getAuth();
     getCategories();
 });

@@ -25,3 +25,7 @@ h2 {
     background-color:black;
     opacity: 0.85;
 }
+
+.carousel-control-prev, .carousel-control-next {
+    background-color:black;
+}

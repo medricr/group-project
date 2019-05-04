@@ -23,13 +23,17 @@ $(document).ready(function () {
 
     getLocation();
 
-    $(document.body).on("click", "#mapBtn", function () {
-        var eventLong = $(this).attr("data-longitude");
-        var eventLat = $(this).attr("data-latitude");
-        var eventCoordinates = [eventLong, eventLat];
-        console.log(eventCoordinates);
+    $('#carousel').on('slide.bs.carousel', function (event) {
+        var index = event.to;
+        var latitude = latitudes[index];
+        var long = longitudes[index];
+        console.log("slide");
+        var coord = [long, latitude];
 
-        var canvas = map.getCanvasContainer();
+        if (map.getSource("point")) {
+            map.removeLayer("point");
+            map.removeSource("point");
+        }
 
         var geojson = {
             "type": "FeatureCollection",
@@ -37,13 +41,14 @@ $(document).ready(function () {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": eventCoordinates
+                    "coordinates": location
                 }
             }]
         };
 
-        // Add a single point to the map
-        map.addSource('point', {
+        geojson.features[0].geometry.coordinates = coord;
+
+        map.addSource("point", {
             "type": "geojson",
             "data": geojson
         });
@@ -58,16 +63,8 @@ $(document).ready(function () {
             }
         });
 
-        // var geocoder = new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken,
-        //     marker: {
-        //         color: 'orange',
-        //         geography: location
-        //     },
-        //     mapboxgl: mapboxgl
+        map.setCenter(coord);
     });
-
-    // map.addControl(geocoder);
 
 });
 
