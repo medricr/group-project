@@ -32,7 +32,7 @@ $(document).ready(function () {
         var hotel_coords = [hotel_lon,hotel_lat];
 
         var el = document.createElement("div");
-        el.className = "marker";
+        el.className = "marker hotel_marker";
         new mapboxgl.Marker(el)
         .setLngLat(hotel_coords)
         .setPopup(new mapboxgl.Popup({ offset: 25 })
