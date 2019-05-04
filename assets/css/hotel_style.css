@@ -7,10 +7,6 @@ a:link {
 a:visited {
     color:coral;
 }
-
-.hotel_marker { 
-    background-color: thistle;
-}
 /* the following two blocks make the hotel table scrollable */
 .hotel_table {
     position: relative;
