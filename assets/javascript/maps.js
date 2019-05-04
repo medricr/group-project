@@ -21,18 +21,21 @@ $(document).ready(function () {
         zoom: 11 // starting zoom
     });
 
-    function setEventMarker(event) {
-        if ($(".marker")) {
-            $(".marker").remove();
-        }
-    };
+    // function setEventMarker(event) {
+    //     if ($(".marker")) {
+    //         $(".marker").remove();
+    //     }
+    // };
 
     // when the user clicks on a hotel....
     $(document.body).on("click",".hotel", function(){
+        console.log("hotel fire");
         // remove any currently places hotel markers...
         if($(".hotel_marker")) {
-            $(".hotel_marker").remove();
+            console.log("if remove fire");
+            $(".hotel_marker"                                                    ).remove();
         }
+
         // get that hotels lang/lot coordinates...
         var hotel_lat = $(this).attr("data_lat");
         var hotel_lon = $(this).attr("data_lon");
@@ -50,7 +53,10 @@ $(document).ready(function () {
     // When the user slides the carousel...
     $('#carousel').on('slide.bs.carousel', function (event) {
         // remove the current event marker
-        $(".mapboxgl-popup").remove();
+        // $(".mapboxgl-popup").remove();
+        if($(".marker")){
+            $(".marker").remove();
+        };
 
         var index;
 
@@ -61,7 +67,7 @@ $(document).ready(function () {
             index = 0;
         }
 
-        // get the current lon/lat coords of the event being displayed
+        // get the current lon/lat coords of the current event
         var latitude = latitudes[index];
         var long = longitudes[index];
 
@@ -106,11 +112,11 @@ $(document).ready(function () {
     });
     $('#carousel').on('slide.bs.carousel', function (event) {
         clearInterval(timer);
-        setEventMarker(event);
+        // setEventMarker(event);
     });
     var timer = setInterval(() => {
         if (latitudes.length !== 0) {
-            setEventMarker();
+            // setEventMarker();
             clearInterval(timer);
         }
     }, 1000);
