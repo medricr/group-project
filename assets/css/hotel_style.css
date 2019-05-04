@@ -13,6 +13,7 @@ a:visited {
 }
 /* the following two blocks make the hotel table scrollable */
 .hotel_table {
+    margin-top: 20px;
     position: relative;
     height: 335px;
     overflow: auto;
