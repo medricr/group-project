@@ -55,6 +55,8 @@ $(document).ready(function () {
 
         console.log(map);
 
+        map.setCenter(coord);
+
         // create a HTML element for each feature
         var el = document.createElement('div');
         el.className = 'marker';
@@ -64,7 +66,7 @@ $(document).ready(function () {
             .setLngLat(coord)
             .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
                 .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
-            .addTo(map);
+            .addTo(map)
 
 
     })
