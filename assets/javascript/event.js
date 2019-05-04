@@ -13,6 +13,7 @@ $(document).ready(function () {
     });
 
     $(".carousel").carousel("pause");
+
     function getAuth() {
         var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
         var accessKey = "access_token=";
@@ -80,7 +81,7 @@ $(document).ready(function () {
 
                 var noEvents = "<h2>No Events Found</h2>";
 
-                $(".carousel-inner").append(noEvents);
+                $("#search").append(noEvents);
             }
 
             $(document).scrollTop($(".carousel").offset().top - 20);
@@ -163,6 +164,7 @@ $(document).ready(function () {
     }
 
     function emptyCarousel() {
+        $("h2").remove();
         $(".carousel-inner").empty();
         $(".carousel-indicators").empty();
     }
