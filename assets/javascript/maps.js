@@ -48,7 +48,7 @@ $(document).ready(function () {
         var index = event.to;
         var latitude = latitudes[index];
         var long = longitudes[index];
-        console.log(latitudes)
+        console.log(latitudes);
 
         var coord = [long, latitude];
         console.log(coord);
