@@ -21,7 +21,10 @@ $(document).ready(function () {
         zoom: 11 // starting zoom
     });
 
-    getLocation();
+    function setEventMarker(event) {
+        if ($(".marker")) {
+            $(".marker").remove();
+        }
 
     // when the user clicks on a hotel....
     $(document.body).on("click",".hotel", function(){
@@ -46,19 +49,30 @@ $(document).ready(function () {
 
     $('#carousel').on('slide.bs.carousel', function (event) {
 
-        if ($(".marker")) {
-            $(".marker").remove();
+        $(".mapboxgl-popup").remove();
+
+        var index;
+
+        if (event) {
+            index = event.to;
+        }
+        else {
+            index = 0;
         }
 
-        var index = event.to;
         var latitude = latitudes[index];
         var long = longitudes[index];
-        console.log(latitudes)
+
+        if (!(latitude && long)) {
+            return;
+        }
+
+        console.log("Latitudes: " + latitudes);
 
         var coord = [long, latitude];
-        console.log(coord);
+        console.log("Coordinate: " + coord);
 
-        console.log(map);
+        map.setCenter(coord);
 
         // create a HTML element for each feature
         var el = document.createElement('div');
@@ -68,12 +82,41 @@ $(document).ready(function () {
         new mapboxgl.Marker(el)
             .setLngLat(coord)
             .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML('<h3>' + "test" + '</h3><p>' + "marker.properties.description" + '</p>'))
+                .setHTML('<h3>' + eventNames[index] + '</h3>'))
+            .addTo(map)
+    }
+
+    getLocation();
+
+    // when the user clicks on a hotel....
+    $(document.body).on("click", ".hotel", function () {
+        // get that hotels lang/lot coordinates...
+        var hotel_lat = $(this).attr("data_lat");
+        var hotel_lon = $(this).attr("data_lon");
+        // store them in a hotel coords variable
+        var hotel_coords = [hotel_lon, hotel_lat];
+
+        var el = document.createElement("div");
+        el.className = "marker";
+        new mapboxgl.Marker(el)
+            .setLngLat(hotel_coords)
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+                .setHTML('<h3>' + $(this).attr("data_name") + '</h3><p>' + "<a href=" + $(this).attr("data_link") + '">Book Now!</a>' + '</p>'))
             .addTo(map);
+    });
+
+    $('#carousel').on('slide.bs.carousel', function (event) {
+        clearInterval(timer);
+        setEventMarker(event);
+    });
 
 
-    })
-    // map.addControl(geocoder);
+    var timer = setInterval(() => {
+        if (latitudes.length !== 0) {
+            setEventMarker();
+            clearInterval(timer);
+        }
+    }, 1000);
 
 });
 
