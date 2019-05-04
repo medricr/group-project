@@ -1,14 +1,14 @@
 body {
-    background-image: url("")
+    background-image: url("");
 }
 html {
     scroll-behavior: smooth;
 }
 
 .jumbotron {
-    background-image: url("../images/san_francisco.jpg");
+    background-image: url("");
     background-repeat: repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 label, h1, .invalid-feedback, a, a:hover{
@@ -36,4 +36,8 @@ h2 {
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+#map {
+    margin-top: 50px;
 }
