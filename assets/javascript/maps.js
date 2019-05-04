@@ -21,15 +21,18 @@ $(document).ready(function () {
         zoom: 11 // starting zoom
     });
 
-    function setEventMarker(event) {
-        if ($(".marker")) {
-            $(".marker").remove();
-        }
+    // function setEventMarker(event) {
+    //     if ($(".marker")) {
+    //         $(".marker").remove();
+    //     }
+    // };
 
     // when the user clicks on a hotel....
     $(document.body).on("click",".hotel", function(){
+        console.log("hotel fire");
         // remove any currently places hotel markers...
         if($(".hotel_marker")) {
+            console.log("if remove fire");
             $(".hotel_marker").remove();
         }
         // get that hotels lang/lot coordinates...
@@ -46,10 +49,13 @@ $(document).ready(function () {
             .setHTML('<h3>' + $(this).attr("data_name") + '</h3><p>' + "<a href="+$(this).attr("data_link")+'" target="_blank">Book Now!</a>' + '<button class="hotel_remove_btn btn">Remove</button>' + '</p>'))
         .addTo(map);
     });
-
+    // When the user slides the carousel...
     $('#carousel').on('slide.bs.carousel', function (event) {
-
-        $(".mapboxgl-popup").remove();
+        // remove the current event marker
+        // $(".mapboxgl-popup").remove();
+        if($(".marker")){
+            $(".marker").remove();
+        };
 
         var index;
 
@@ -60,6 +66,7 @@ $(document).ready(function () {
             index = 0;
         }
 
+        // get the current lon/lat coords of the current event
         var latitude = latitudes[index];
         var long = longitudes[index];
 
@@ -84,10 +91,8 @@ $(document).ready(function () {
             .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
                 .setHTML('<h3>' + eventNames[index] + '</h3>'))
             .addTo(map)
-    }
-
+    });
     getLocation();
-
     // when the user clicks on a hotel....
     $(document.body).on("click", ".hotel", function () {
         // get that hotels lang/lot coordinates...
@@ -104,22 +109,14 @@ $(document).ready(function () {
                 .setHTML('<h3>' + $(this).attr("data_name") + '</h3><p>' + "<a href=" + $(this).attr("data_link") + '">Book Now!</a>' + '</p>'))
             .addTo(map);
     });
-
     $('#carousel').on('slide.bs.carousel', function (event) {
         clearInterval(timer);
-        setEventMarker(event);
+        // setEventMarker(event);
     });
-
-
     var timer = setInterval(() => {
         if (latitudes.length !== 0) {
-            setEventMarker();
+            // setEventMarker();
             clearInterval(timer);
         }
     }, 1000);
-
 });
-
-
-
-

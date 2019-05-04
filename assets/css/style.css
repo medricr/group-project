@@ -34,7 +34,8 @@ h2 {
 .carousel-control-prev, .carousel-control-next {
     background-color:black;
 }
-    .marker {
+
+.marker {
     background-image: url("http://clipart-library.com/images/pcodLeLxi.png");
     background-size: cover;
     width: 50px;
@@ -43,6 +44,4 @@ h2 {
     cursor: pointer;
 }
 
-#map {
-    margin-top: 50px;
-}
+

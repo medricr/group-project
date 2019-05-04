@@ -9,7 +9,13 @@ a:visited {
 }
 
 .hotel_marker { 
-    background-color: thistle;
+    /* background-color: this?tle;
+     */
+     background-image:(url("../images/"))
+}
+
+.hotel_card {
+    background-color: gray;
 }
 /* the following two blocks make the hotel table scrollable */
 .hotel_table {
