@@ -30,7 +30,10 @@ h2 {
     opacity: 0.85;
 }
 
-.marker {
+.carousel-control-prev, .carousel-control-next {
+    background-color:black;
+}
+    .marker {
     background-image: url("http://clipart-library.com/images/pcodLeLxi.png");
     background-size: cover;
     width: 50px;

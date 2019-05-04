@@ -48,29 +48,29 @@
         <div class="row mt-5 justify-content-md-center">
             <div class="col-md-12 col-xs-12">
                 <!-- <div class="jumbotron"> -->
-                    <h1 class="display-4">Event Me</h1>
+                <h1 class="display-4">Event Me</h1>
 
-                    <form class="needs-validation mt-3 form-row" novalidate>
-                        <div class="form-group col-4">
-                            <label for="search">Search (optional)</label>
-                            <input class="form-control" id="search"></input>
+                <form class="needs-validation mt-3 form-row" novalidate>
+                    <div class="form-group col-4">
+                        <label for="search">Search (optional)</label>
+                        <input class="form-control" id="search"></input>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="city">City</label>
+                        <input class="form-control" id="city" required></input>
+                        <div class="invalid-feedback">
+                            Please choose a city.
                         </div>
+                    </div>
 
-                        <div class="form-group col-4">
-                            <label for="city">City</label>
-                            <input class="form-control" id="city" required></input>
-                            <div class="invalid-feedback">
-                                Please choose a city.
-                            </div>
-                        </div>
+                    <div class="form-group col-4">
+                        <label for="categories">Categories</label>
+                        <select class="form-control" id="categories"></select>
+                    </div>
 
-                        <div class="form-group col-4">
-                            <label for="categories">Categories</label>
-                            <select class="form-control" id="categories"></select>
-                        </div>
-
-                        <button type="submit" id="submit" class="btn btn-light ml-1">Submit</button>
-                    </form>
+                    <button type="submit" id="submit" class="btn btn-light ml-1">Submit</button>
+                </form>
 
                 <!-- </div> -->
             </div>
@@ -93,6 +93,7 @@
                 </div>
             </div>
         </div>
+
         <!-- hotel list / map display row -->
         <div class="row">
             <!-- hotel list -->
@@ -122,12 +123,12 @@
                 </div>
             </div>
             <!-- map display -->
-            <div class="container col-sm-6">
+            <div class="col-sm-6">
                 <div id='map' style='width: 100%; height: 450px;'></div>
             </div>
+
         </div>
     </div>
-
 </body>
 
 </html>
