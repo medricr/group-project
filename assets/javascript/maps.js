@@ -33,9 +33,8 @@ $(document).ready(function () {
         // remove any currently places hotel markers...
         if($(".hotel_marker")) {
             console.log("if remove fire");
-            $(".hotel_marker"                                                    ).remove();
+            $(".hotel_marker").remove();
         }
-
         // get that hotels lang/lot coordinates...
         var hotel_lat = $(this).attr("data_lat");
         var hotel_lon = $(this).attr("data_lon");
