@@ -15,7 +15,7 @@ $(document).ready(function () {
     $(".carousel").carousel("pause");
 
     function getAuth() {
-        var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=http://127.0.0.1:5500/index.html";
+        var authUrl = "https://www.eventbrite.com/oauth/authorize?response_type=token&client_id=UZRTAU3LXXH7HZRSM2&redirect_uri=https://medricr.github.io/group-project/";
         var accessKey = "access_token=";
 
         var href = window.location.href;
